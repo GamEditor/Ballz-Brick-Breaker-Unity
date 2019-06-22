@@ -1,0 +1,32 @@
+<dependencies>
+  <packages>
+    <package>com.google.games:gpgs-plugin-support:0.9.50</package>
+  </packages>
+  <files>
+    <file>Assets/Plugins/Android/com.android.support.support-annotations-25.2.0.jar</file>
+    <file>Assets/Plugins/Android/com.android.support.support-compat-25.2.0.aar</file>
+    <file>Assets/Plugins/Android/com.android.support.support-core-ui-25.2.0.aar</file>
+    <file>Assets/Plugins/Android/com.android.support.support-core-utils-25.2.0.aar</file>
+    <file>Assets/Plugins/Android/com.android.support.support-fragment-25.2.0.aar</file>
+    <file>Assets/Plugins/Android/com.android.support.support-media-compat-25.2.0.aar</file>
+    <file>Assets/Plugins/Android/com.android.support.support-v4-25.2.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-api-phone-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-api-phone-license-11.6.2</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-base-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-base-license-11.6.2</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-base-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-base-license-11.6.2</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-license-11.6.2</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-drive-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-drive-license-11.6.2</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-games-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-games-license-11.6.2</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-nearby-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-nearby-license-11.6.2</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-11.6.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-license-11.6.2</file>
+    <file>Assets/Plugins/Android/com.google.games.gpgs-plugin-support-0.9.50</file>
+  </files>
+</dependencies>
