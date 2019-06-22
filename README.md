@@ -5,3 +5,5 @@ This game is published on an iranian store. here's the <a href="https://cafebaza
 
 <b>Features</b>
 * Google Play Games Leaderboard
+
+Please follow us on <a href="https://www.instagram.com/gameditors/">Instagram</a>
