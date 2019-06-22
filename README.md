@@ -1,2 +1,5 @@
 # Ballz-Brick-Breaker-Unity
-A clone of &lt;b>Swipe Brick Breaker&lt;/b> made with Unity
+A clone of <b>Swipe Brick Breaker</b> made with Unity
+
+<b>Features</b>
+* Google Play Games Leaderboard
