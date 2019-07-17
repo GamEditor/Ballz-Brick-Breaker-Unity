@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BallLauncher : MonoBehaviour
 {
     public static BallLauncher Instance;
-    
+
     private Vector3 m_StartPosition;
     private Vector3 m_EndPosition;
     private Vector3 m_WorldPosition;
@@ -21,6 +21,10 @@ public class BallLauncher : MonoBehaviour
 
     public bool m_CanPlay = true;
     [SerializeField] private GameObject m_DeactivatableChildren;
+
+    [Header("Linerenderer Colors")]
+    public Color m_CorrectLineColor;    // it will be displayed for correct angles
+    public Color m_WrongLineColor;      // it will be displayed for wrong angles
 
     [Header("Balls")]
     public int m_BallsAmount;
@@ -77,13 +81,26 @@ public class BallLauncher : MonoBehaviour
     
     private void ContinueDrag(Vector3 worldPosition)
     {
-        //Vector3 tempEndposition = worldPosition;
+        Vector3 tempEndposition = worldPosition;
 
-        //Vector3 tempDirection = tempEndposition - m_StartPosition;
-        //tempDirection.Normalize();
+        Vector3 tempDirection = tempEndposition - m_StartPosition;
+        tempDirection.Normalize();
 
-        //if (Mathf.Abs(Mathf.Atan2(tempDirection.x, tempDirection.y)) < 1.35f)
-            m_EndPosition = worldPosition;
+        // getting the angle in radians. you can replace 1.35f with any number or without hardcode like this
+        if (Mathf.Abs(Mathf.Atan2(tempDirection.x, tempDirection.y)) < 1.35f)
+        {
+            Debug.Log("Color is correct");
+            m_LineRenderer.startColor = m_CorrectLineColor;
+            m_LineRenderer.endColor = m_CorrectLineColor;
+        }
+        else
+        {
+            Debug.Log("Color is incorrect");
+            m_LineRenderer.startColor = m_WrongLineColor;
+            m_LineRenderer.endColor = m_WrongLineColor;
+        }
+
+        m_EndPosition = worldPosition;
 
         m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
     }
