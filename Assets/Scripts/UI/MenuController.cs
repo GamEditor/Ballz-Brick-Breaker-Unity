@@ -127,11 +127,6 @@ public class MenuController : MonoBehaviour
             ShareAndroid("بالاترین امتیاز من توی بازی Ballz (Brick Breaker): " + ScoreManager.Instance.m_BestScore.ToString() + "\n\nhttps://cafebazaar.ir/app/com.gameditors.ballz", "", "", null, "text/plain", true, "اشتراک گذاری بالاترین امتیاز با");
     }
 
-    public void ShowLeaderboardsUI()
-    {
-        GooglePlayServicesController.ShowLeaderboardUI();
-    }
-
     public void OpenInstagramPage()
     {
 #if UNITY_ANDROID
@@ -274,7 +269,6 @@ public class MenuController : MonoBehaviour
     public void GotoMainMenuAfterGameOver()
     {
         GameManager.Instance.m_GameState = GameManager.GameState.MainMenu;
-        ScoreManager.Instance.SubmitScoreToLeaderboard();
         Saver.Instance.Save(true);
     }
 
@@ -282,7 +276,6 @@ public class MenuController : MonoBehaviour
     {
         GameManager.Instance.m_GameState = GameManager.GameState.MainMenu;
         GameManager.Instance.m_GameState = GameManager.GameState.Playable;
-        ScoreManager.Instance.SubmitScoreToLeaderboard();
         Saver.Instance.Save(true);
     }
     #endregion
@@ -291,7 +284,6 @@ public class MenuController : MonoBehaviour
     public void GotoMainMenu()
     {
         GameManager.Instance.m_GameState = GameManager.GameState.MainMenu;
-        ScoreManager.Instance.SubmitScoreToLeaderboard();
         HidePauseMenu();
     }
 

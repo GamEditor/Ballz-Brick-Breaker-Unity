@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour
                     m_GameOverFinalScore.text = "Final Score : " + (BrickSpawner.Instance.m_LevelOfFinalBrick - 1).ToString();
                     BallLauncher.Instance.m_CanPlay = false;
                     BallLauncher.Instance.ResetPositions();
-                    ScoreManager.Instance.SubmitScoreToLeaderboard();
                     break;
             }
         }

@@ -44,9 +44,4 @@ public class ScoreManager : MonoBehaviour
 
         m_ScoreText.text = BrickSpawner.Instance.m_LevelOfFinalBrick.ToString();
     }
-
-    public void SubmitScoreToLeaderboard()
-    {
-        GooglePlayServicesController.SubmitScoreToLeaderboard(GooglePlayIds.leaderboard_high_scores, m_BestScore);
-    }
 }

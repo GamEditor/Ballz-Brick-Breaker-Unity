@@ -89,13 +89,13 @@ public class BallLauncher : MonoBehaviour
         // getting the angle in radians. you can replace 1.35f with any number or without hardcode like this
         if (Mathf.Abs(Mathf.Atan2(tempDirection.x, tempDirection.y)) < 1.35f)
         {
-            Debug.Log("Color is correct");
+            // Debug.Log("Color is correct");
             m_LineRenderer.startColor = m_CorrectLineColor;
             m_LineRenderer.endColor = m_CorrectLineColor;
         }
         else
         {
-            Debug.Log("Color is incorrect");
+            // Debug.Log("Color is incorrect");
             m_LineRenderer.startColor = m_WrongLineColor;
             m_LineRenderer.endColor = m_WrongLineColor;
         }
