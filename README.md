@@ -6,7 +6,7 @@ This game is published on an iranian store. here's the <a href="https://cafebaza
 <b>Features</b>
 * Google Play Games Leaderboard
 
-Please follow me on <a href="https://www.instagram.com/sharepointer.ir/">instagram</a>
+You can contact me in <a href="https://www.instagram.com/sharepointer.ir/">instagram</a> or <a href="https://www.linkedin.com/in/mohammad-fathi/">LinkdedIn</a>
 
 <b>Demo</b><br>
 ![Demo Gameplay](https://github.com/GamEditorsTechnolegies/Ballz-Brick-Breaker-Unity/blob/master/Ballz-Brick-Breaker-Unity.gif)
