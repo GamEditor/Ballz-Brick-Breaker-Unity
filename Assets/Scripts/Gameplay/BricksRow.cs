@@ -84,19 +84,19 @@ public class BricksRow : MonoBehaviour
     private void HideAll()
     {
         Debug.Log("BricksRow - HideAll");
-        /*
+        
         for (int i = 0; i < m_Bricks.Length; i++)
         {
             m_Bricks[i].gameObject.SetActive(false);
             m_ScoreBalls[i].gameObject.SetActive(false);
         }
-        */
+        
     }
 
     private void GoToTop()
     {
         Debug.Log("GoToTop");
-        HideAll();
+        //HideAll();
         transform.localPosition = new Vector3(0, BrickSpawner.Instance.m_SpawningTopPosition, 0);
     }
 
