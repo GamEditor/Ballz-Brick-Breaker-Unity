@@ -91,7 +91,7 @@ public class BricksRow : MonoBehaviour
 
     private void GoToTop()
     {
-        HideAll();
+        //HideAll();
         transform.localPosition = new Vector3(0, BrickSpawner.Instance.m_SpawningTopPosition, 0);
     }
 
