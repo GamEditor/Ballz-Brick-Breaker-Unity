@@ -44,7 +44,7 @@ public class Brick : MonoBehaviour
 
     public void Attack ()
     {
-        console.log("Attack");
+        Debug.log("Attack");
     }
     
     public void ChangeColor()
