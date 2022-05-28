@@ -49,6 +49,7 @@ public class Ball : MonoBehaviour
 
     private static void ContinuePlaying()
     {
+        Debug.Log("ContinuePlaying");
         if (s_FirstCollisionPoint != Vector3.zero)
             BallLauncher.Instance.transform.position = s_FirstCollisionPoint;
 

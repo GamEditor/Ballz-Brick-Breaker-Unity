@@ -219,7 +219,7 @@ public class BallLauncher : MonoBehaviour
     public void ReturnAllBallsToNewStartPosition()
     {
         //StopAllCoroutines();
-
+        Debug.Log("ReturnAllBallsToNewStartPosition");
         if(Ball.s_FirstCollisionPoint != Vector3.zero)
         {
             transform.position = Ball.s_FirstCollisionPoint;
