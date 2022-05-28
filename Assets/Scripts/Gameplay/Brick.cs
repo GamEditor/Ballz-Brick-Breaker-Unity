@@ -44,7 +44,7 @@ public class Brick : MonoBehaviour
 
     public void Attack ()
     {
-        Debug.log("Attack");
+        Debug.Log("Attack");
     }
     
     public void ChangeColor()
