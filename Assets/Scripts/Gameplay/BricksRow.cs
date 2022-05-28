@@ -57,8 +57,9 @@ public class BricksRow : MonoBehaviour
     {
         if(transform.localPosition.y <= m_FloorPosition)
         {
-            if(HasActiveBricks())
-                GameManager.Instance.m_GameState = GameManager.GameState.GameOver;
+            if (HasActiveBricks())
+                //GameManager.Instance.m_GameState = GameManager.GameState.GameOver;
+                AttackPlayer();
             else if (HasActiveScoreBall())
             {
                 GoToTop();
@@ -108,6 +109,17 @@ public class BricksRow : MonoBehaviour
         {
             gameObject.SetActive(false);
             GoToTop();
+        }
+    }
+
+    public void AttackPlayer ()
+    {
+        for (int i = 0; i < m_Bricks.Length; i++)
+        {
+            if (m_Bricks[i].gameObject.activeInHierarchy)
+            {
+                m_Bricks[i].Attack();
+            }
         }
     }
 

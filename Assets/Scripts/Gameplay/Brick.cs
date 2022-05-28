@@ -41,6 +41,11 @@ public class Brick : MonoBehaviour
             //m_Parent.CheckBricksActivation();
         }
     }
+
+    public void Attack ()
+    {
+        console.log("Attack");
+    }
     
     public void ChangeColor()
     {
