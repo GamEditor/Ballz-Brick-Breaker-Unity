@@ -36,6 +36,9 @@ public class BallLauncher : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private GameObject m_ReturnBallsButton;
+    public GameObject topBorder;
+    public GameObject leftBorder;
+    public GameObject rightBorder;
 
     private void Awake()
     {
@@ -81,6 +84,7 @@ public class BallLauncher : MonoBehaviour
     
     private void ContinueDrag(Vector3 worldPosition)
     {
+        Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
         Vector3 tempEndposition = worldPosition;
 
         Vector3 tempDirection = tempEndposition - m_StartPosition;
@@ -100,7 +104,7 @@ public class BallLauncher : MonoBehaviour
             m_LineRenderer.endColor = m_WrongLineColor;
         }
 
-        m_EndPosition = worldPosition;
+        m_EndPosition = topPosition;
 
         m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
     }
