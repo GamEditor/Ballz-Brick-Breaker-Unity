@@ -39,6 +39,7 @@ public class BallLauncher : MonoBehaviour
     public GameObject topBorder;
     public GameObject leftBorder;
     public GameObject rightBorder;
+    public GameObject ballStartPosition;
 
     private void Awake()
     {
@@ -69,8 +70,9 @@ public class BallLauncher : MonoBehaviour
         if(Time.timeScale != 0 && GameManager.Instance.m_GameState != GameManager.GameState.GameOver)
             m_WorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.back * -10;
 
+
         if (Input.GetMouseButtonDown(0))
-            StartDrag(m_WorldPosition);
+          //  StartDrag(m_WorldPosition);
         else if (Input.GetMouseButton(0))
             ContinueDrag(m_WorldPosition);
         else if (Input.GetMouseButtonUp(0))
@@ -87,7 +89,9 @@ public class BallLauncher : MonoBehaviour
     {
         Debug.Log("topBorder.transform.position" + topBorder.transform.position);
         Debug.Log("endPosition " + worldPosition);
-        Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
+        ballStartPosition
+        //Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
+        Vector3 topPosition = new Vector3(((topBorder.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, topBorder.transform.position.y, worldPosition.z);
         Debug.Log("topPosition " + topPosition);
         Vector3 tempEndposition = worldPosition;
 
@@ -108,9 +112,10 @@ public class BallLauncher : MonoBehaviour
             m_LineRenderer.endColor = m_WrongLineColor;
         }
 
-        m_EndPosition = worldPosition;
+        m_EndPosition = topPosition;
 
-        m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
+        //m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
+        m_LineRenderer.SetPosition(1, m_EndPosition - ballStartPosition.transform.position);
     }
 
     private void EndDrag()
