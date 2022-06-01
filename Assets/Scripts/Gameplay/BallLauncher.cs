@@ -96,7 +96,7 @@ public class BallLauncher : MonoBehaviour
         Debug.Log("topPosition " + topPosition);
         Vector3 tempEndposition = worldPosition;
 
-        Vector3 tempDirection = tempEndposition - m_StartPosition;
+        Vector3 tempDirection = tempEndposition - ballStartPosition.transform.position;
         tempDirection.Normalize();
 
         // getting the angle in radians. you can replace 1.35f with any number or without hardcode like this
