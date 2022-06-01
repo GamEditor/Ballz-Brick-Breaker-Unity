@@ -107,7 +107,7 @@ public class BallLauncher : MonoBehaviour
             tempEndposition = topPosition;
         }
         
-        Vector3 tempEndposition = worldPosition;
+        
 
         Vector3 tempDirection = tempEndposition - ballStartPosition.transform.position;
         tempDirection.Normalize();
