@@ -124,7 +124,8 @@ public class BallLauncher : MonoBehaviour
         if (m_StartPosition == m_EndPosition)
             return;
 
-        m_Direction = m_EndPosition - m_StartPosition;
+       // m_Direction = m_EndPosition - m_StartPosition;
+        m_Direction = m_EndPosition - ballStartPosition.transform.position;
         m_Direction.Normalize();
 
         m_LineRenderer.SetPosition(1, Vector3.zero);
