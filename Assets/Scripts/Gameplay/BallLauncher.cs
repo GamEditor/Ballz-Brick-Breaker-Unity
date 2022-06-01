@@ -99,7 +99,8 @@ public class BallLauncher : MonoBehaviour
         if (topPosition.x < leftBorder.transform.position.x)
         {
             tempEndposition = leftPositionPoint;
-        } else if {
+        } else if (topPosition.x > rightBorder.transform.position.x)
+        {
             tempEndposition = rightPositionPoint;
         } else
         {
