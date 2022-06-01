@@ -80,11 +80,14 @@ public class BallLauncher : MonoBehaviour
     private void StartDrag(Vector3 worldPosition)
     {
         m_StartPosition = worldPosition;
+        Debug.Log("startPosition " + m_StartPosition);
     }
     
     private void ContinueDrag(Vector3 worldPosition)
     {
+        Debug.Log("endPosition " + worldPosition);
         Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
+        Debug.Log("topPosition " + topPosition);
         Vector3 tempEndposition = worldPosition;
 
         Vector3 tempDirection = tempEndposition - m_StartPosition;
@@ -104,7 +107,7 @@ public class BallLauncher : MonoBehaviour
             m_LineRenderer.endColor = m_WrongLineColor;
         }
 
-        m_EndPosition = topPosition;
+        m_EndPosition = worldPosition;
 
         m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
     }
