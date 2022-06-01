@@ -85,6 +85,7 @@ public class BallLauncher : MonoBehaviour
     
     private void ContinueDrag(Vector3 worldPosition)
     {
+        Debug.Log("topBorder.transform.position" + topBorder.transform.position);
         Debug.Log("endPosition " + worldPosition);
         Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
         Debug.Log("topPosition " + topPosition);
