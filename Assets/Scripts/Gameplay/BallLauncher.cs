@@ -90,10 +90,22 @@ public class BallLauncher : MonoBehaviour
     {
         Debug.Log("topBorder.transform.position" + topBorder.transform.position);
         Debug.Log("endPosition " + worldPosition);
-       
+        Vector3 tempEndposition;
         //Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
         Vector3 topPosition = new Vector3(((topBorder.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, topBorder.transform.position.y, worldPosition.z);
+        Vector3 leftPositionPoint = new Vector3(leftBorder.position.x, ((leftBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
+        Vector3 rightPositionPoint = new Vector3(rightBorder.position.x, ((rightBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z)
         Debug.Log("topPosition " + topPosition);
+        if (topPosition.x < leftBorder.transform.position.x)
+        {
+            tempEndposition = leftPositionPoint;
+        } else if {
+            tempEndposition = rightPositionPoint;
+        } else
+        {
+            tempEndposition = topPosition;
+        }
+        
         Vector3 tempEndposition = worldPosition;
 
         Vector3 tempDirection = tempEndposition - ballStartPosition.transform.position;
@@ -113,7 +125,7 @@ public class BallLauncher : MonoBehaviour
             m_LineRenderer.endColor = m_WrongLineColor;
         }
 
-        m_EndPosition = topPosition;
+        m_EndPosition = tempEndposition;
 
         //m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
         m_LineRenderer.SetPosition(1, m_EndPosition - ballStartPosition.transform.position);
