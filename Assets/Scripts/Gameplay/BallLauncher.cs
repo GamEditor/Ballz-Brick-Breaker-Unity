@@ -70,10 +70,11 @@ public class BallLauncher : MonoBehaviour
         if(Time.timeScale != 0 && GameManager.Instance.m_GameState != GameManager.GameState.GameOver)
             m_WorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.back * -10;
 
-
+        /*
         if (Input.GetMouseButtonDown(0))
           //  StartDrag(m_WorldPosition);
-        else if (Input.GetMouseButton(0))
+        else */
+        if (Input.GetMouseButton(0))
             ContinueDrag(m_WorldPosition);
         else if (Input.GetMouseButtonUp(0))
             EndDrag();
