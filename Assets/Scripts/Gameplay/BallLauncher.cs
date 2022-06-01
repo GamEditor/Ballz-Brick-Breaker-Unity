@@ -94,7 +94,7 @@ public class BallLauncher : MonoBehaviour
         //Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
         Vector3 topPosition = new Vector3(((topBorder.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, topBorder.transform.position.y, worldPosition.z);
         Vector3 leftPositionPoint = new Vector3(leftBorder.position.x, ((leftBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
-        Vector3 rightPositionPoint = new Vector3(rightBorder.position.x, ((rightBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z)
+        Vector3 rightPositionPoint = new Vector3(rightBorder.position.x, ((rightBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
         Debug.Log("topPosition " + topPosition);
         if (topPosition.x < leftBorder.transform.position.x)
         {
