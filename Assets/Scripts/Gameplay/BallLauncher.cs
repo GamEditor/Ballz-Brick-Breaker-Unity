@@ -130,6 +130,7 @@ public class BallLauncher : MonoBehaviour
 
         //m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
         m_LineRenderer.SetPosition(1, m_EndPosition - ballStartPosition.transform.position);
+        MakeCollider();
     }
 
     private void EndDrag()
