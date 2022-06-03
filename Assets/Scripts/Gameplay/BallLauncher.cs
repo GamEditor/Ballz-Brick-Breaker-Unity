@@ -315,4 +315,9 @@ public class BallLauncher : MonoBehaviour
     {
         Debug.Log("collision " + collision.gameObject.transform.position);
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("GameObject2 collided with " + col.name);
+    }
 }
