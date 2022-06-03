@@ -310,4 +310,9 @@ public class BallLauncher : MonoBehaviour
         }
         return v2;
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.transform.position);
+    }
 }
