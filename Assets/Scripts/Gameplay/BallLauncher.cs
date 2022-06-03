@@ -86,13 +86,13 @@ public class BallLauncher : MonoBehaviour
     private void StartDrag(Vector3 worldPosition)
     {
         m_StartPosition = worldPosition;
-        Debug.Log("startPosition " + m_StartPosition);
+       // Debug.Log("startPosition " + m_StartPosition);
     }
     
     private void ContinueDrag(Vector3 worldPosition)
     {
-        Debug.Log("topBorder.transform.position" + topBorder.transform.position);
-        Debug.Log("endPosition " + worldPosition);
+        //Debug.Log("topBorder.transform.position" + topBorder.transform.position);
+       // Debug.Log("endPosition " + worldPosition);
         Vector3 tempEndposition;
         //Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
         Vector3 topPosition = new Vector3(((topBorder.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, topBorder.transform.position.y, worldPosition.z);
@@ -313,6 +313,6 @@ public class BallLauncher : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.transform.position);
+        Debug.Log("collision " + collision.gameObject.transform.position);
     }
 }
