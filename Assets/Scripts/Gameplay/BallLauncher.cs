@@ -286,7 +286,7 @@ public class BallLauncher : MonoBehaviour
 
         //create collider
         var edge = gameObject.AddComponent<EdgeCollider2D>();
-        edge.points = pos.Select(p => (Vector2)p).ToArray();
+        edge.points = pos.ToArray();
     }
 
     public void IncreaseBallsAmountFromOutSide(int amout)
