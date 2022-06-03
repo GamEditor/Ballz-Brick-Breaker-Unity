@@ -14,6 +14,7 @@ public class BallLauncher : MonoBehaviour
     private Vector3 m_Direction;
 
     private LineRenderer m_LineRenderer;
+    private EdgeCollider2D edgeCollider2D;
 
     private Vector3 m_DefaultStartPosition;
 
@@ -46,6 +47,7 @@ public class BallLauncher : MonoBehaviour
         Instance = this;
         m_CanPlay = true;
         m_LineRenderer = GetComponent<LineRenderer>();
+        edgeCollider2D = gameObject.AddComponent<EdgeCollider2D>();
 
         m_DefaultStartPosition = transform.position;
 
@@ -130,7 +132,7 @@ public class BallLauncher : MonoBehaviour
 
         //m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
         m_LineRenderer.SetPosition(1, m_EndPosition - ballStartPosition.transform.position);
-        MakeCollider();
+        ChangeCollider();
     }
 
     private void EndDrag()
@@ -277,7 +279,7 @@ public class BallLauncher : MonoBehaviour
         m_CanPlay = true;
     }
 
-    public void MakeCollider()
+    public void ChangeCollider()
     {
         var line = GetComponent<LineRenderer>();
 
@@ -287,9 +289,8 @@ public class BallLauncher : MonoBehaviour
 
         Vector2[] pos2 = ConvertArray(pos);
 
-        //create collider
-        var edge = gameObject.AddComponent<EdgeCollider2D>();
-        edge.points = pos2;
+        //change points of edgeCollider
+        edgeCollider2D.points = pos2;
     }
 
     public void IncreaseBallsAmountFromOutSide(int amout)
