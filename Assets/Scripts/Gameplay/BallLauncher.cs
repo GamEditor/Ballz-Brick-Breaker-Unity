@@ -48,7 +48,7 @@ public class BallLauncher : MonoBehaviour
         m_CanPlay = true;
         m_LineRenderer = GetComponent<LineRenderer>();
         edgeCollider2D = gameObject.AddComponent<EdgeCollider2D>();
-        edgeCollider2D.isTrigger = true;
+        edgeCollider2D.isTrigger = false;
 
         m_DefaultStartPosition = transform.position;
 
