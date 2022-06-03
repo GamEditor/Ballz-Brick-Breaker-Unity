@@ -284,7 +284,7 @@ public class BallLauncher : MonoBehaviour
         var pos = new Vector3[line.positionCount];
         line.GetPositions(pos);
 
-        Vector2[] pos2 = pos.ConvertArray();
+        Vector2[] pos2 = ConvertArray(pos);
 
         //create collider
         var edge = gameObject.AddComponent<EdgeCollider2D>();
