@@ -145,7 +145,7 @@ public class BallLauncher : MonoBehaviour
         m_Direction.Normalize();
 
         m_LineRenderer.SetPosition(1, Vector3.zero);
-
+        ChangeCollider();
         if (Mathf.Abs(Mathf.Atan2(m_Direction.x, m_Direction.y)) < 1.35f)   // hardcode for this time. fix it!
         {
             if(m_Balls.Count < m_BallsAmount)
