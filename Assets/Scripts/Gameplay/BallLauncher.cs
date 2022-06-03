@@ -276,13 +276,7 @@ public class BallLauncher : MonoBehaviour
         m_CanPlay = true;
     }
 
-    public void OnCollisionEnter (Collision collision)
-    {
-        ContactPoint contact = collision.contacts[0];
-        Vector3 pos = contact.point;
-        m_LineRenderer.SetPosition(1, pos - ballStartPosition.transform.position);
-
-    }
+    
 
     public void IncreaseBallsAmountFromOutSide(int amout)
     {
