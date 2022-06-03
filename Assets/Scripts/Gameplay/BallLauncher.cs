@@ -284,7 +284,7 @@ public class BallLauncher : MonoBehaviour
         var pos = new Vector3[line.positionCount];
         line.GetPositions(pos);
 
-        Vector2[] pos2 = pos.toVector2();
+        Vector2[] pos2 = posConvertArray();
 
         //create collider
         var edge = gameObject.AddComponent<EdgeCollider2D>();
@@ -297,16 +297,14 @@ public class BallLauncher : MonoBehaviour
         m_BallsText.text = "x" + m_BallsAmount.ToString();
     }
 
-    public static class MyVector3Extension
+    Vector2[] ConvertArray(Vector3[] v3)
     {
-        public static Vector2[] toVector2(this Vector3[] v3)
+        Vector2[] v2 = new Vector2[v3.Length];
+        for (int i = 0; i < v3.Length; i++)
         {
-            return System.Array.ConvertAll<Vector3, Vector2>(v3, getV3fromV2);
+            Vector3 tempV3 = v3[i];
+            v2[i] = new Vector2(tempV3.x, tempV3.y);
         }
-
-        public static Vector2 getV3fromV2(Vector3 v3)
-        {
-            return new Vector2(v3.x, v3.y);
-        }
+        return v2;
     }
 }
