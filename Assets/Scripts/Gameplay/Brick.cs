@@ -5,12 +5,14 @@ public class Brick : MonoBehaviour
 {
     public Text m_Text;
     public int m_Health;    // it's gonna be public because the GameManager needs to setup each brick
+    private PolygonCollider2D polygonCollider2D;
 
     private SpriteRenderer m_SpriteRenderer;
     private ParticleSystem m_ParentParticle;
 
     private void Awake()
     {
+        polygonCollider2D = gameObject.AddComponent<PolygonCollider2D>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_ParentParticle = GetComponentInParent<ParticleSystem>();
     }
@@ -47,6 +49,7 @@ public class Brick : MonoBehaviour
     {
         if (collider.gameObject.GetComponent<Ball>() != null)
         {
+            polygonCollider2D.isTrigger = false;
             m_Health--;
             m_Text.text = m_Health.ToString();
             ChangeColor();
@@ -62,6 +65,7 @@ public class Brick : MonoBehaviour
                 gameObject.SetActive(false);
                 //m_Parent.CheckBricksActivation();
             }
+            polygonCollider2D.isTrigger = true;
         }
     }
 
