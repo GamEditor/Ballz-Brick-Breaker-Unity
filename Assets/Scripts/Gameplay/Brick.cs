@@ -22,7 +22,7 @@ public class Brick : MonoBehaviour
 
         ChangeColor();
     }
-
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         m_Health--;
@@ -39,6 +39,29 @@ public class Brick : MonoBehaviour
             // 2 - hide this Brick or this row
             gameObject.SetActive(false);
             //m_Parent.CheckBricksActivation();
+        }
+    }
+    */
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.GetComponent<Ball>() != null)
+        {
+            m_Health--;
+            m_Text.text = m_Health.ToString();
+            ChangeColor();
+
+            if (m_Health <= 0)
+            {
+                // 1 - play a particle
+                Color color = new Color(m_SpriteRenderer.color.r, m_SpriteRenderer.color.g, m_SpriteRenderer.color.b, 0.5f);
+                m_ParentParticle.startColor = color;
+                m_ParentParticle.Play();
+
+                // 2 - hide this Brick or this row
+                gameObject.SetActive(false);
+                //m_Parent.CheckBricksActivation();
+            }
         }
     }
 
