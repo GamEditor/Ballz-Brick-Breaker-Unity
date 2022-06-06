@@ -12,7 +12,7 @@ public class Brick : MonoBehaviour
 
     private void Awake()
     {
-        polygonCollider2D = gameObject.AddComponent<PolygonCollider2D>();
+        polygonCollider2D = gameObject.GetComponent<PolygonCollider2D>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_ParentParticle = GetComponentInParent<ParticleSystem>();
     }
