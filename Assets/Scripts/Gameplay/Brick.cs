@@ -5,7 +5,8 @@ public class Brick : MonoBehaviour
 {
     public Text m_Text;
     public int m_Health;    // it's gonna be public because the GameManager needs to setup each brick
-    private PolygonCollider2D polygonCollider2D;
+    public PolygonCollider2D polygonCollider2D;
+    private Rigidbody2D rigidbody2D;
 
     private SpriteRenderer m_SpriteRenderer;
     private ParticleSystem m_ParentParticle;
@@ -13,6 +14,7 @@ public class Brick : MonoBehaviour
     private void Awake()
     {
         polygonCollider2D = gameObject.GetComponent<PolygonCollider2D>();
+        rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_ParentParticle = GetComponentInParent<ParticleSystem>();
     }
@@ -46,6 +48,11 @@ public class Brick : MonoBehaviour
                 //m_Parent.CheckBricksActivation();
             }
         }
+    }
+
+    public void ChangeRigidbodyType (RigidbodyType2D rigidbodyType)
+    {
+        rigidbody2D.bodyType = rigidbodyType;
     }
     
 

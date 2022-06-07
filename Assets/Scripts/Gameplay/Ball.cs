@@ -65,6 +65,7 @@ public class Ball : MonoBehaviour
         s_ReturnedBallsAmount = 0;
 
         BallLauncher.Instance.m_CanPlay = true;
+        BallLauncher.Instance.FindBricksAndSetRigidbodyType(RigidbodyType2D.Dynamic);
     }
 
     public static void ResetFirstCollisionPoint()

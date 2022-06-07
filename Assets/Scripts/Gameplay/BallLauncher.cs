@@ -22,6 +22,9 @@ public class BallLauncher : MonoBehaviour
 
     public bool m_CanPlay = true;
     [SerializeField] private GameObject m_DeactivatableChildren;
+    [Header("Bricks")]
+    public Brick[] bricks;
+    Collider2D[] colliders;
 
     [Header("Linerenderer Colors")]
     public Color m_CorrectLineColor;    // it will be displayed for correct angles
@@ -92,7 +95,7 @@ public class BallLauncher : MonoBehaviour
     private void ContinueDrag(Vector3 worldPosition)
     {
         //Debug.Log("topBorder.transform.position" + topBorder.transform.position);
-       // Debug.Log("endPosition " + worldPosition);
+        // Debug.Log("endPosition " + worldPosition);
         Vector3 tempEndposition;
         //Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
         Vector3 topPosition = new Vector3(((topBorder.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, topBorder.transform.position.y, worldPosition.z);
@@ -149,11 +152,26 @@ public class BallLauncher : MonoBehaviour
         ChangeCollider();
         if (Mathf.Abs(Mathf.Atan2(m_Direction.x, m_Direction.y)) < 1.35f)   // hardcode for this time. fix it!
         {
-            if(m_Balls.Count < m_BallsAmount)
+            //set RigidbodyType for all bricks
+            FindBricksAndSetRigidbodyType(RigidbodyType2D.Static);
+            if (m_Balls.Count < m_BallsAmount)
                 SpawNewBall(m_BallsAmount - m_Balls.Count);
 
             m_CanPlay = false;
             StartCoroutine(StartShootingBalls());
+        }
+    }
+
+    public void FindBricksAndSetRigidbodyType (RigidbodyType2D rigidbodyType)
+    {
+        colliders = Physics2D.OverlapCircleAll(transform.position, 100);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject.GetComponent<Brick>() != null)
+            {
+                colliders[i].gameObject.GetComponent<Brick>().ChangeRigidbodyType(rigidbodyType);
+                colliders[i].gameObject.GetComponent<Brick>().polygonCollider2D.isTrigger = true;
+            }
         }
     }
 
@@ -278,6 +296,7 @@ public class BallLauncher : MonoBehaviour
 
         ActivateHUD();
         m_CanPlay = true;
+        FindBricksAndSetRigidbodyType(RigidbodyType2D.Dynamic);
     }
 
     public void ChangeCollider()
@@ -313,11 +332,24 @@ public class BallLauncher : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("collision " + collision.gameObject.transform.position);
+        //Debug.Log("collision " + collision.gameObject.transform.position);
+        Debug.Log("GameObject2 collision with " + collision.gameObject.name);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log("GameObject2 collided with " + col.name);
+        if (col.gameObject.GetComponent<Brick>() != null)
+        {
+            //col.gameObject.GetComponent<Brick>().ChangeRigidbodyType(RigidbodyType2D.Static);
+        }   
+    }
+
+    void OnTriggerExit2D (Collider2D col)
+    {
+        if (col.gameObject.GetComponent<Brick>() != null)
+        {
+            //col.gameObject.GetComponent<Brick>().ChangeRigidbodyType(RigidbodyType2D.Dynamic);
+        }
     }
 }
