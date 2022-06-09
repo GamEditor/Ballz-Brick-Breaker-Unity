@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static LevelManager Instance;
 
-    public GameObject m_MainMenuPanel;
     public GameObject m_GameMenuPanel;
     public GameObject m_GameOverPanel;
     public GameObject m_Scores;
     public Text m_GameOverFinalScore;
 
-    public enum GameState { MainMenu, Playable, GameOver, }
-    private GameState m_State; //= GameState.MainMenu;
+    public enum LevelState { Playable, GameOver, }
+    private LevelState m_State; //= GameState.MainMenu;
 
-    public GameState m_GameState
+    public LevelState m_LevelState
     {
         set
         {
@@ -22,23 +21,13 @@ public class GameManager : MonoBehaviour
 
             switch(value)
             {
-                case GameState.MainMenu:
-                    m_MainMenuPanel.SetActive(true);
-                    m_GameMenuPanel.SetActive(false);
-                    m_GameOverPanel.SetActive(false);
-                    m_Scores.SetActive(true);
-
-                    BallLauncher.Instance.OnMainMenuActions();
-                    BrickSpawner.Instance.HideAllBricksRows();
-                    break;
-                case GameState.Playable:
+                case LevelState.Playable:
                     if(Saver.Instance.HasSave())
                     {
 
                     }
                     else
                     {
-                        m_MainMenuPanel.SetActive(false);
                         m_GameMenuPanel.SetActive(true);
                         m_GameOverPanel.SetActive(false);
                         m_Scores.SetActive(true);
@@ -52,8 +41,7 @@ public class GameManager : MonoBehaviour
                         BrickSpawner.Instance.SpawnNewBricks();
                     }
                     break;
-                case GameState.GameOver:
-                    m_MainMenuPanel.SetActive(false);
+                case LevelState.GameOver:
                     m_GameMenuPanel.SetActive(false);
                     m_GameOverPanel.SetActive(true);
                     m_Scores.SetActive(false);
@@ -76,9 +64,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // m_GameState = GameState.MainMenu;
-        Debug.Log("start gameManager gameState " + m_GameState);
-        Debug.Log("instanse state " + Instance.m_GameState);
+        m_LevelState = LevelState.Playable;
+        Debug.Log("start gameManager LevelState " + m_LevelState);
+        Debug.Log("instanse state " + Instance.m_LevelState);
     }
 
     private void Update()

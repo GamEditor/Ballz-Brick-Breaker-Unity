@@ -62,19 +62,19 @@ public class BallLauncher : MonoBehaviour
     private void Start()
     {
         m_Balls = new List<Ball>(m_StartingBallsPoolAmount);
-        
+        m_BallsText.text = "x" + m_BallsAmount.ToString();
         SpawNewBall(m_StartingBallsPoolAmount);
     }
 
     private void Update()
     {
-        if (GameManager.Instance.m_GameState == GameManager.GameState.MainMenu || GameManager.Instance.m_GameState == GameManager.GameState.GameOver)
+        if (LevelManager.Instance.m_LevelState == LevelManager.LevelState.GameOver)
             return;
 
         if (!m_CanPlay)
             return;
 
-        if(Time.timeScale != 0 && GameManager.Instance.m_GameState != GameManager.GameState.GameOver)
+        if(Time.timeScale != 0 && LevelManager.Instance.m_LevelState != LevelManager.LevelState.GameOver)
             m_WorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.back * -10;
 
         /*

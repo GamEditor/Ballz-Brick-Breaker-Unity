@@ -60,7 +60,7 @@ public class BricksRow : MonoBehaviour
         {
             if (HasActiveBricks())
             {
-                GameManager.Instance.m_GameState = GameManager.GameState.GameOver;
+                LevelManager.Instance.m_LevelState = LevelManager.LevelState.GameOver;
                 //AttackPlayer();
                 if (HasActiveScoreBall())
                 {
