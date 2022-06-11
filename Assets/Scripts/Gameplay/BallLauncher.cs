@@ -63,6 +63,7 @@ public class BallLauncher : MonoBehaviour
     {
         m_Balls = new List<Ball>(m_StartingBallsPoolAmount);
         m_BallsText.text = "x" + m_BallsAmount.ToString();
+        m_ReturnBallsButton.SetActive(false);
         SpawNewBall(m_StartingBallsPoolAmount);
     }
 
@@ -253,10 +254,11 @@ public class BallLauncher : MonoBehaviour
     {
         m_BallsAmount += m_TempAmount;
 
-        // avoiding more balls than final brick level
-        if (m_BallsAmount > BrickSpawner.Instance.m_LevelOfFinalBrick)
-            m_BallsAmount = BrickSpawner.Instance.m_LevelOfFinalBrick;
-
+        // avoiding more balls than final brick level - I SHOULD AVOID THIS. IF I will use extra balls. Bochkarev Aleksei
+        /*
+        if (m_BallsAmount > ScoreManager.Instance.m_LevelOfFinalBrick)
+            m_BallsAmount = ScoreManager.Instance.m_LevelOfFinalBrick;
+        */
         m_TempAmount = 0;
 
         m_BallsText.text = "x" + m_BallsAmount.ToString();

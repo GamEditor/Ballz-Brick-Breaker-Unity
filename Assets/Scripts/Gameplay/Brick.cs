@@ -21,7 +21,9 @@ public class Brick : MonoBehaviour
 
     private void OnEnable()
     {
-        m_Health = BrickSpawner.Instance.m_LevelOfFinalBrick;
+        //GOOD DECISION BUT I SHOULD CHANGE THIS BOCHKAREV ALEKSEI
+        m_Health = ScoreManager.Instance.m_LevelOfFinalBrick +1;
+        Debug.Log("Brick OnEnable m_Health " + m_Health);
         m_Text.text = m_Health.ToString();
 
         ChangeColor();
@@ -87,6 +89,6 @@ public class Brick : MonoBehaviour
     
     public void ChangeColor()
     {
-        m_SpriteRenderer.color = Color.LerpUnclamped(new Color(1, 0.75f, 0, 1), Color.red, m_Health / (float)BrickSpawner.Instance.m_LevelOfFinalBrick);
+        m_SpriteRenderer.color = Color.LerpUnclamped(new Color(1, 0.75f, 0, 1), Color.red, m_Health / (float)ScoreManager.Instance.m_LevelOfFinalBrick);
     }
 }

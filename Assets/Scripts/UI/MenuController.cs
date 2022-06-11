@@ -302,7 +302,7 @@ public class MenuController : MonoBehaviour
     #region Pause Menu
     public void GotoMainMenu()
     {
-        GameManager.Instance.m_GameState = GameManager.GameState.MainMenu;
+        Application.LoadLevel("Main");
         HidePauseMenu();
     }
 

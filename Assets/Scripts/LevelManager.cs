@@ -33,11 +33,10 @@ public class LevelManager : MonoBehaviour
                         m_Scores.SetActive(true);
                     
                         BallLauncher.Instance.m_CanPlay = true;
-                        BrickSpawner.Instance.m_LevelOfFinalBrick = 1;  // temporary (after save and load)
-
+                        Debug.Log("Level state, LevelOfFinalBrick " + ScoreManager.Instance.m_LevelOfFinalBrick);
+                        ScoreManager.Instance.m_LevelOfFinalBrick = 0;  // temporary (after save and load)
                         // reset score (probably by conditions)
-                        ScoreManager.Instance.m_ScoreText.text = BrickSpawner.Instance.m_LevelOfFinalBrick.ToString();
-
+                        //ScoreManager.Instance.m_ScoreText.text = ScoreManager.Instance.m_LevelOfFinalBrick.ToString();
                         BrickSpawner.Instance.SpawnNewBricks();
                     }
                     break;
@@ -46,7 +45,7 @@ public class LevelManager : MonoBehaviour
                     m_GameOverPanel.SetActive(true);
                     m_Scores.SetActive(false);
 
-                    m_GameOverFinalScore.text = "Final Score : " + (BrickSpawner.Instance.m_LevelOfFinalBrick - 1).ToString();
+                    m_GameOverFinalScore.text = "Final Score : " + (ScoreManager.Instance.m_LevelOfFinalBrick - 1).ToString();
                     BallLauncher.Instance.m_CanPlay = false;
                     BallLauncher.Instance.ResetPositions();
                     break;
@@ -71,6 +70,6 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        
+        ScoreManager.Instance.m_ScoreText.text = ScoreManager.Instance.m_LevelOfFinalBrick.ToString();
     }
 }

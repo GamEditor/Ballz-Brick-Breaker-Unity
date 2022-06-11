@@ -5,7 +5,7 @@ public class BrickSpawner : MonoBehaviour
 {
     public static BrickSpawner Instance;
 
-    public int m_LevelOfFinalBrick;
+    
 
     [Header("Spawning informations")]
     public int m_SpawningRows = 7;
@@ -19,8 +19,6 @@ public class BrickSpawner : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-        m_LevelOfFinalBrick = PlayerPrefs.GetInt("level_of_final_brick", 1);
 
         m_BricksRow = new List<BricksRow>();
 
@@ -41,16 +39,21 @@ public class BrickSpawner : MonoBehaviour
 
     public void SpawnNewBricks()
     {
+        Debug.Log("SpawnNewBricks - m_BricksRow.Count " + m_BricksRow.Count);
+        ScoreManager.Instance.m_LevelOfFinalBrick++;
         for (int i = 0; i < m_BricksRow.Count; i++)
         {
             if(!m_BricksRow[i].gameObject.activeInHierarchy)
             {
+                Debug.Log("SpawnNewBricks m_BricksRow " + i + "set active true");
                 m_BricksRow[i].gameObject.SetActive(true);
                 break;
             }
         }
-        
-        m_LevelOfFinalBrick++;
+        Debug.Log("SpawnNewBricks - m_BricksRow.Count " + m_BricksRow.Count);
+        Debug.Log("SpawnNewBricks - Level Score " + ScoreManager.Instance.m_LevelOfFinalBrick);
+        //ScoreManager.Instance.m_LevelOfFinalBrick++;
+        Debug.Log("SpawnNewBricks - Level Score " + ScoreManager.Instance.m_LevelOfFinalBrick);
     }
 
     public void MoveDownBricksRows()

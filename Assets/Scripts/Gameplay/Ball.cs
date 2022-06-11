@@ -111,6 +111,7 @@ public class Ball : MonoBehaviour
     private void Deactive()
     {
         s_ReturnedBallsAmount++;    // then check all of balls are returned to the floor
+        //INPOTANT PLACE - HERE I CAN AD ATACK (BOCH ALEKSEI)
         if (s_ReturnedBallsAmount == BallLauncher.Instance.m_BallsAmount)
             ContinuePlaying();
 

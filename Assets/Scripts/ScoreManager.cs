@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        m_LevelOfFinalBrick = PlayerPrefs.GetInt("level_of_final_brick", 1);
+        //m_LevelOfFinalBrick = PlayerPrefs.GetInt("level_of_final_brick", 1);
     }
 
     private void Start()

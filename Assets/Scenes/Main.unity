@@ -1249,6 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4929e2727f372924aa5a61e1a442a32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_LevelOfFinalBrick: 0
   m_BestScoreText: {fileID: 1467217800}
   m_ScoreText: {fileID: 1452636687}
 --- !u!114 &519420034
@@ -5907,7 +5908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2036214286
 RectTransform:
   m_ObjectHideFlags: 0
