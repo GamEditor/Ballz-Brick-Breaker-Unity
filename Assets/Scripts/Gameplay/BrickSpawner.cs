@@ -50,10 +50,6 @@ public class BrickSpawner : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("SpawnNewBricks - m_BricksRow.Count " + m_BricksRow.Count);
-        Debug.Log("SpawnNewBricks - Level Score " + ScoreManager.Instance.m_LevelOfFinalBrick);
-        //ScoreManager.Instance.m_LevelOfFinalBrick++;
-        Debug.Log("SpawnNewBricks - Level Score " + ScoreManager.Instance.m_LevelOfFinalBrick);
     }
 
     public void MoveDownBricksRows()

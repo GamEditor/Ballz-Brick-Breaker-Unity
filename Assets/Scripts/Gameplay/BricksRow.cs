@@ -9,6 +9,16 @@ public class BricksRow : MonoBehaviour
 
     private void Awake()
     {
+        /* fill bricks
+        // generate rows of bricks on the scene
+        m_Bricks = new List<Bricks>();
+        for (int i = 0; i < m_SpawningRows; i++)
+        {
+            m_Bricks.Add(Instantiate(m_BricksRowPrefab, transform.parent, false));
+            m_Bricks[m_Bricks.Count - 1].transform.localPosition = new Vector3(0, m_SpawningTopPosition, 0);
+            m_Bricks[m_Bricks.Count - 1].gameObject.SetActive(false);
+        } 
+         */
         m_Bricks = GetComponentsInChildren<Brick>();
         m_ScoreBalls = GetComponentsInChildren<ScoreBall>();
     }
@@ -43,7 +53,7 @@ public class BricksRow : MonoBehaviour
             if (m_Bricks[i].gameObject.activeInHierarchy)
             {
                 hasNoBrick = false;
-                Debug.Log("OnEnable hasNoBrick " + i +hasNoBrick);
+                Debug.Log("OnEnable hasNoBrick " + i + hasNoBrick);
                 break;
             }
 
@@ -126,6 +136,7 @@ public class BricksRow : MonoBehaviour
         }
     }
 
+    //TEST METHOD ALEX BOCHKAREV
     public void AttackPlayer ()
     {
         for (int i = 0; i < m_Bricks.Length; i++)
