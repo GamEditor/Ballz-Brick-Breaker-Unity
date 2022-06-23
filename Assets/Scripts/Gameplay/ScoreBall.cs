@@ -17,8 +17,11 @@ public class ScoreBall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BallLauncher.Instance.m_TempAmount++;    // increase balls amount
-        PlayParticle();
+        if(collision.gameObject.GetComponent<Ball>() != null)
+        {
+            BallLauncher.Instance.m_TempAmount++;    // increase balls amount
+            PlayParticle();
+        }  
     }
 
     public void PlayParticle()

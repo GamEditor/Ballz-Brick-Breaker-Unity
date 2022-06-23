@@ -8,3 +8,12 @@ y = ((x-x1)/(x2-x1))*(y2-y1) + y1
     void Update() {
         reflectedObject.position = Vector3.Reflect(originalObject.position, Vector3.right);
     }
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.SendMessage("ApplyDamage", 10);
+        }
+    }

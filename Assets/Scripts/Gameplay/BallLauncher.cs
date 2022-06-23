@@ -14,13 +14,18 @@ public class BallLauncher : MonoBehaviour
     private Vector3 m_Direction;
 
     private LineRenderer m_LineRenderer;
+    private EdgeCollider2D edgeCollider2D;
 
     private Vector3 m_DefaultStartPosition;
 
     public SpriteRenderer m_BallSprite;
+    public bool colliderTriggered = false;
 
     public bool m_CanPlay = true;
     [SerializeField] private GameObject m_DeactivatableChildren;
+    [Header("Bricks")]
+    //public Brick[] bricks;
+    Collider2D[] colliders;
 
     [Header("Linerenderer Colors")]
     public Color m_CorrectLineColor;    // it will be displayed for correct angles
@@ -46,6 +51,8 @@ public class BallLauncher : MonoBehaviour
         Instance = this;
         m_CanPlay = true;
         m_LineRenderer = GetComponent<LineRenderer>();
+        edgeCollider2D = gameObject.AddComponent<EdgeCollider2D>();
+        edgeCollider2D.isTrigger = false;
 
         m_DefaultStartPosition = transform.position;
 
@@ -55,19 +62,20 @@ public class BallLauncher : MonoBehaviour
     private void Start()
     {
         m_Balls = new List<Ball>(m_StartingBallsPoolAmount);
-        
+        m_BallsText.text = "x" + m_BallsAmount.ToString();
+        m_ReturnBallsButton.SetActive(false);
         SpawNewBall(m_StartingBallsPoolAmount);
     }
 
     private void Update()
     {
-        if (GameManager.Instance.m_GameState == GameManager.GameState.MainMenu || GameManager.Instance.m_GameState == GameManager.GameState.GameOver)
+        if (LevelManager.Instance.m_LevelState == LevelManager.LevelState.GameOver)
             return;
 
         if (!m_CanPlay)
             return;
 
-        if(Time.timeScale != 0 && GameManager.Instance.m_GameState != GameManager.GameState.GameOver)
+        if(Time.timeScale != 0 && LevelManager.Instance.m_LevelState != LevelManager.LevelState.GameOver)
             m_WorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.back * -10;
 
         /*
@@ -83,35 +91,34 @@ public class BallLauncher : MonoBehaviour
     private void StartDrag(Vector3 worldPosition)
     {
         m_StartPosition = worldPosition;
-        Debug.Log("startPosition " + m_StartPosition);
+       // Debug.Log("startPosition " + m_StartPosition);
     }
     
     private void ContinueDrag(Vector3 worldPosition)
     {
-        Debug.Log("topBorder.transform.position" + topBorder.transform.position);
-        Debug.Log("endPosition " + worldPosition);
+        //Debug.Log("topBorder.transform.position" + topBorder.transform.position);
+        // Debug.Log("endPosition " + worldPosition);
         Vector3 tempEndposition;
-        //Vector3 topPosition = new Vector3(((topBorder.transform.position.y - m_StartPosition.y) * (worldPosition.x - m_StartPosition.x)) / (worldPosition.y - m_StartPosition.y) + m_StartPosition.x, topBorder.transform.position.y, worldPosition.z);
+        
         Vector3 topPosition = new Vector3(((topBorder.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, topBorder.transform.position.y, worldPosition.z);
         Vector3 leftPositionPoint = new Vector3(leftBorder.transform.position.x, ((leftBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
         Vector3 rightPositionPoint = new Vector3(rightBorder.transform.position.x, ((rightBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
-        Debug.Log("topPosition " + topPosition);
-        if (topPosition.x < leftBorder.transform.position.x)
-        {
-            tempEndposition = leftPositionPoint;
-        } else if (topPosition.x > rightBorder.transform.position.x)
-        {
-            tempEndposition = rightPositionPoint;
-        } else
-        {
-            tempEndposition = topPosition;
-        }
+       // Debug.Log("topPosition " + topPosition);
+            if (topPosition.x < leftBorder.transform.position.x)
+            {
+                tempEndposition = leftPositionPoint;
+            }
+            else if (topPosition.x > rightBorder.transform.position.x)
+            {
+                tempEndposition = rightPositionPoint;
+            }
+            else
+            {
+                tempEndposition = topPosition;
+            }
         
-        
-
         Vector3 tempDirection = tempEndposition - ballStartPosition.transform.position;
         tempDirection.Normalize();
-
         // getting the angle in radians. you can replace 1.35f with any number or without hardcode like this
         if (Mathf.Abs(Mathf.Atan2(tempDirection.x, tempDirection.y)) < 1.35f)
         {
@@ -127,9 +134,8 @@ public class BallLauncher : MonoBehaviour
         }
 
         m_EndPosition = tempEndposition;
-
-        //m_LineRenderer.SetPosition(1, m_EndPosition - m_StartPosition);
         m_LineRenderer.SetPosition(1, m_EndPosition - ballStartPosition.transform.position);
+        ChangeCollider();
     }
 
     private void EndDrag()
@@ -142,14 +148,29 @@ public class BallLauncher : MonoBehaviour
         m_Direction.Normalize();
 
         m_LineRenderer.SetPosition(1, Vector3.zero);
-
+        ChangeCollider();
         if (Mathf.Abs(Mathf.Atan2(m_Direction.x, m_Direction.y)) < 1.35f)   // hardcode for this time. fix it!
         {
-            if(m_Balls.Count < m_BallsAmount)
+            //set RigidbodyType for all bricks
+            FindBricksAndSetRigidbodyType(RigidbodyType2D.Static);
+            if (m_Balls.Count < m_BallsAmount)
                 SpawNewBall(m_BallsAmount - m_Balls.Count);
 
             m_CanPlay = false;
             StartCoroutine(StartShootingBalls());
+        }
+    }
+
+    public void FindBricksAndSetRigidbodyType (RigidbodyType2D rigidbodyType)
+    {
+        colliders = Physics2D.OverlapCircleAll(transform.position, 100);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject.GetComponent<Brick>() != null)
+            {
+                colliders[i].gameObject.GetComponent<Brick>().ChangeRigidbodyType(rigidbodyType);
+                colliders[i].gameObject.GetComponent<Brick>().polygonCollider2D.isTrigger = true;
+            }
         }
     }
 
@@ -233,10 +254,11 @@ public class BallLauncher : MonoBehaviour
     {
         m_BallsAmount += m_TempAmount;
 
-        // avoiding more balls than final brick level
-        if (m_BallsAmount > BrickSpawner.Instance.m_LevelOfFinalBrick)
-            m_BallsAmount = BrickSpawner.Instance.m_LevelOfFinalBrick;
-
+        // avoiding more balls than final brick level - I SHOULD AVOID THIS. IF I will use extra balls. Bochkarev Aleksei
+        /*
+        if (m_BallsAmount > ScoreManager.Instance.m_LevelOfFinalBrick)
+            m_BallsAmount = ScoreManager.Instance.m_LevelOfFinalBrick;
+        */
         m_TempAmount = 0;
 
         m_BallsText.text = "x" + m_BallsAmount.ToString();
@@ -274,11 +296,64 @@ public class BallLauncher : MonoBehaviour
 
         ActivateHUD();
         m_CanPlay = true;
+        FindBricksAndSetRigidbodyType(RigidbodyType2D.Dynamic);
+    }
+
+    public void ChangeCollider()
+    {
+        var line = GetComponent<LineRenderer>();
+
+        //get pos
+        var pos = new Vector3[line.positionCount];
+        line.GetPositions(pos);
+
+        Vector2[] pos2 = ConvertArray(pos);
+
+        //change points of edgeCollider
+        edgeCollider2D.points = pos2;
     }
 
     public void IncreaseBallsAmountFromOutSide(int amout)
     {
         m_BallsAmount += amout;
         m_BallsText.text = "x" + m_BallsAmount.ToString();
+    }
+
+    Vector2[] ConvertArray(Vector3[] v3)
+    {
+        Vector2[] v2 = new Vector2[v3.Length];
+        for (int i = 0; i < v3.Length; i++)
+        {
+            Vector3 tempV3 = v3[i];
+            v2[i] = new Vector2(tempV3.x, tempV3.y);
+        }
+        return v2;
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("GameObject2 collided with " + col.name);
+        if (col.gameObject.GetComponent<Brick>() != null)
+        {
+            colliderTriggered = true;
+        }   
+    }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        //Debug.Log("GameObject2 stay with " + col.name);
+        if (col.gameObject.GetComponent<Brick>() != null)
+        {
+            //m_LineRenderer.SetPosition(1, col.transform.position - ballStartPosition.transform.position);
+            //Debug.Log("position " + new Vector3(((col.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, col.transform.position.y, worldPosition.z));
+        }
+    }
+
+    void OnTriggerExit2D (Collider2D col)
+    {
+        if (col.gameObject.GetComponent<Brick>() != null)
+        {
+            colliderTriggered = false;
+        }
     }
 }

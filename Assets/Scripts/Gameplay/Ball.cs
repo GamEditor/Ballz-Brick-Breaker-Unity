@@ -65,6 +65,7 @@ public class Ball : MonoBehaviour
         s_ReturnedBallsAmount = 0;
 
         BallLauncher.Instance.m_CanPlay = true;
+        BallLauncher.Instance.FindBricksAndSetRigidbodyType(RigidbodyType2D.Dynamic);
     }
 
     public static void ResetFirstCollisionPoint()
@@ -110,6 +111,7 @@ public class Ball : MonoBehaviour
     private void Deactive()
     {
         s_ReturnedBallsAmount++;    // then check all of balls are returned to the floor
+        //INPOTANT PLACE - HERE I CAN AD ATACK (BOCH ALEKSEI)
         if (s_ReturnedBallsAmount == BallLauncher.Instance.m_BallsAmount)
             ContinuePlaying();
 

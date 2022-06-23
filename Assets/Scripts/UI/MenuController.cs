@@ -19,6 +19,20 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null)
+        {
+            if (Input.GetKeyUp(KeyCode.Escape) && !m_MainMenuQuitPanel.activeInHierarchy)
+                m_MainMenuQuitPanel.SetActive(true);
+            else if (Input.GetKeyUp(KeyCode.Escape) && m_MainMenuQuitPanel.activeInHierarchy)
+                m_MainMenuQuitPanel.SetActive(false);
+        } else if (LevelManager.Instance != null)
+        {
+            if (Input.GetKeyUp(KeyCode.Escape) && !m_PauseMenu.activeInHierarchy)
+                ShowPauseMenu();
+            else if (Input.GetKeyUp(KeyCode.Escape) && m_PauseMenu.activeInHierarchy)
+                HidePauseMenu();
+        }
+        /*
         switch(GameManager.Instance.m_GameState)
         {
             case GameManager.GameState.MainMenu:
@@ -35,11 +49,14 @@ public class MenuController : MonoBehaviour
                     HidePauseMenu();
                 break;
         }
+        */
     }
 
     public void StartGame()
     {
-        GameManager.Instance.m_GameState = GameManager.GameState.Playable;
+        Application.LoadLevel("Level1");
+        //GameManager.Instance.m_GameState = GameManager.GameState.Playable;
+        //Debug.Log("gamestate " + GameManager.Instance.m_GameState);
     }
 
     public void ShowPauseMenu()
@@ -268,14 +285,16 @@ public class MenuController : MonoBehaviour
     #region GameOver Menu
     public void GotoMainMenuAfterGameOver()
     {
-        GameManager.Instance.m_GameState = GameManager.GameState.MainMenu;
+        Application.LoadLevel("Main");
+        //GameManager.Instance.m_GameState = GameManager.GameState.MainMenu;
         Saver.Instance.Save(true);
     }
 
     public void ReplayAfterGameOver()
     {
-        GameManager.Instance.m_GameState = GameManager.GameState.MainMenu;
-        GameManager.Instance.m_GameState = GameManager.GameState.Playable;
+        BallLauncher.Instance.OnMainMenuActions();
+        BrickSpawner.Instance.HideAllBricksRows();
+        LevelManager.Instance.m_LevelState = LevelManager.LevelState.Playable;
         Saver.Instance.Save(true);
     }
     #endregion
@@ -283,7 +302,7 @@ public class MenuController : MonoBehaviour
     #region Pause Menu
     public void GotoMainMenu()
     {
-        GameManager.Instance.m_GameState = GameManager.GameState.MainMenu;
+        Application.LoadLevel("Main");
         HidePauseMenu();
     }
 
