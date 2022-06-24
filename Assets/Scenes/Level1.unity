@@ -1733,9 +1733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Coins: 0
-  m_CoinsAfterGame: 0
   m_CoinsText: {fileID: 670190828}
-  coins: {fileID: 0}
 --- !u!1 &756781828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4212,7 +4210,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9ced66b3742116d4e806f2a5fab68fec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 97bddf49aa1744031a42e7cc776142d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5149,7 +5147,7 @@ MonoBehaviour:
   m_SpawningRows: 7
   m_BricksRowPrefab: {fileID: 114082328019945812, guid: 8fbd4e3836caf4e0b997a3d4df863e89,
     type: 3}
-  m_SpawningTopPosition: 3.65
+  m_SpawningTopPosition: 3.78
   m_SpawningDistance: 0.64
   m_BricksRow: []
 --- !u!1 &2036214285
