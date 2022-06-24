@@ -48,6 +48,9 @@ public class Brick : MonoBehaviour
                 // 2 - hide this Brick or this row
                 gameObject.SetActive(false);
                 //m_Parent.CheckBricksActivation();
+
+                // 3 - Set coin 
+                Coins.Instance.AddCoin();
             }
         }
     }
@@ -77,6 +80,10 @@ public class Brick : MonoBehaviour
                 // 2 - hide this Brick or this row
                 gameObject.SetActive(false);
                 //m_Parent.CheckBricksActivation();
+                
+                // 3 - Set coin 
+                Coins.Instance.AddCoin();
+                
             }
             //polygonCollider2D.isTrigger = true;
         }
