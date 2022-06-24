@@ -10,11 +10,14 @@ public class MenuController : MonoBehaviour
     public GameObject m_SettingsPanel;
     public GameObject m_PauseMenu;  // or backMenu (panel)
 
+    public static bool pause;
+
     private float m_timeScale;
 
     void Start ()
     {
         m_SettingsPanel.SetActive(false);
+        pause = false;
     }
 
     void Update()
@@ -64,6 +67,7 @@ public class MenuController : MonoBehaviour
         // 1 - stop the time scale
         m_timeScale = Time.timeScale;
         Time.timeScale = 0;
+        pause = true;
 
         // 2 - active m_PauseMenu
         m_PauseMenu.SetActive(true);
@@ -74,7 +78,6 @@ public class MenuController : MonoBehaviour
         // 1 - relaunch the time scale
         Time.timeScale = m_timeScale;
         m_timeScale = 0;
-
         // 2 - deactive m_PauseMenu
         m_PauseMenu.SetActive(false);
     }
@@ -309,6 +312,7 @@ public class MenuController : MonoBehaviour
     public void ResumeGame()
     {
         HidePauseMenu();
+        pause = false;
     }
 
     public void QuitGame()

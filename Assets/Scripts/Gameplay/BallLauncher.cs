@@ -44,6 +44,7 @@ public class BallLauncher : MonoBehaviour
     public GameObject topBorder;
     public GameObject leftBorder;
     public GameObject rightBorder;
+    public GameObject bottomBorder;
     public GameObject ballStartPosition;
 
     private void Awake()
@@ -82,9 +83,19 @@ public class BallLauncher : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
           //  StartDrag(m_WorldPosition);
         else */
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) &&
+            !MenuController.pause
+            && m_WorldPosition.x >= leftBorder.transform.position.x
+            && m_WorldPosition.x <= rightBorder.transform.position.x
+            && m_WorldPosition.y <= topBorder.transform.position.y
+            && m_WorldPosition.y >= bottomBorder.transform.position.y)
             ContinueDrag(m_WorldPosition);
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) &&
+            !MenuController.pause
+            && m_WorldPosition.x >= leftBorder.transform.position.x
+            && m_WorldPosition.x <= rightBorder.transform.position.x
+            && m_WorldPosition.y <= topBorder.transform.position.y
+            && m_WorldPosition.y >= bottomBorder.transform.position.y)
             EndDrag();
     }
 
@@ -96,14 +107,19 @@ public class BallLauncher : MonoBehaviour
     
     private void ContinueDrag(Vector3 worldPosition)
     {
-        //Debug.Log("topBorder.transform.position" + topBorder.transform.position);
-        // Debug.Log("endPosition " + worldPosition);
-        Vector3 tempEndposition;
-        
-        Vector3 topPosition = new Vector3(((topBorder.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, topBorder.transform.position.y, worldPosition.z);
-        Vector3 leftPositionPoint = new Vector3(leftBorder.transform.position.x, ((leftBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
-        Vector3 rightPositionPoint = new Vector3(rightBorder.transform.position.x, ((rightBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
-       // Debug.Log("topPosition " + topPosition);
+        if (worldPosition.x >= leftBorder.transform.position.x
+            && worldPosition.x <= rightBorder.transform.position.x
+            && worldPosition.y <= topBorder.transform.position.y
+            && worldPosition.y >= bottomBorder.transform.position.y)
+        {
+            //Debug.Log("topBorder.transform.position" + topBorder.transform.position);
+            // Debug.Log("endPosition " + worldPosition);
+            Vector3 tempEndposition;
+
+            Vector3 topPosition = new Vector3(((topBorder.transform.position.y - ballStartPosition.transform.position.y) * (worldPosition.x - ballStartPosition.transform.position.x)) / (worldPosition.y - ballStartPosition.transform.position.y) + ballStartPosition.transform.position.x, topBorder.transform.position.y, worldPosition.z);
+            Vector3 leftPositionPoint = new Vector3(leftBorder.transform.position.x, ((leftBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
+            Vector3 rightPositionPoint = new Vector3(rightBorder.transform.position.x, ((rightBorder.transform.position.x - ballStartPosition.transform.position.x) * (worldPosition.y - ballStartPosition.transform.position.y)) / (worldPosition.x - ballStartPosition.transform.position.x) + ballStartPosition.transform.position.y, worldPosition.z);
+            // Debug.Log("topPosition " + topPosition);
             if (topPosition.x < leftBorder.transform.position.x)
             {
                 tempEndposition = leftPositionPoint;
@@ -116,26 +132,28 @@ public class BallLauncher : MonoBehaviour
             {
                 tempEndposition = topPosition;
             }
-        
-        Vector3 tempDirection = tempEndposition - ballStartPosition.transform.position;
-        tempDirection.Normalize();
-        // getting the angle in radians. you can replace 1.35f with any number or without hardcode like this
-        if (Mathf.Abs(Mathf.Atan2(tempDirection.x, tempDirection.y)) < 1.35f)
-        {
-            // Debug.Log("Color is correct");
-            m_LineRenderer.startColor = m_CorrectLineColor;
-            m_LineRenderer.endColor = m_CorrectLineColor;
-        }
-        else
-        {
-            // Debug.Log("Color is incorrect");
-            m_LineRenderer.startColor = m_WrongLineColor;
-            m_LineRenderer.endColor = m_WrongLineColor;
-        }
 
-        m_EndPosition = tempEndposition;
-        m_LineRenderer.SetPosition(1, m_EndPosition - ballStartPosition.transform.position);
-        ChangeCollider();
+            Vector3 tempDirection = tempEndposition - ballStartPosition.transform.position;
+            tempDirection.Normalize();
+            // getting the angle in radians. you can replace 1.35f with any number or without hardcode like this
+            if (Mathf.Abs(Mathf.Atan2(tempDirection.x, tempDirection.y)) < 1.35f)
+            {
+                // Debug.Log("Color is correct");
+                m_LineRenderer.startColor = m_CorrectLineColor;
+                m_LineRenderer.endColor = m_CorrectLineColor;
+            }
+            else
+            {
+                // Debug.Log("Color is incorrect");
+                m_LineRenderer.startColor = m_WrongLineColor;
+                m_LineRenderer.endColor = m_WrongLineColor;
+            }
+
+            m_EndPosition = tempEndposition;
+            m_LineRenderer.SetPosition(1, m_EndPosition - ballStartPosition.transform.position);
+            ChangeCollider();
+        }
+        
     }
 
     private void EndDrag()
