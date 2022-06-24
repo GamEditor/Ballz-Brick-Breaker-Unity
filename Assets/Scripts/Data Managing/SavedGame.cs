@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class SavedGame
 {
     public int finalScore;
+
+    public int finalCoins;
     
     public float xPositionOfBallLauncher;   // ball launcher x position
 

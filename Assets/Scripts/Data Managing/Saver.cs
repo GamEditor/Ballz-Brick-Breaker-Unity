@@ -23,6 +23,7 @@ public class Saver : MonoBehaviour
         {
             SavedGame savedGame = new SavedGame
             {
+                finalCoins = Coins.Instance.m_Coins,
                 finalScore = ScoreManager.Instance.m_LevelOfFinalBrick,
                 xPositionOfBallLauncher = BallLauncher.Instance.transform.position.x,
                 BrickRowYPos = new System.Collections.Generic.List<float>()
