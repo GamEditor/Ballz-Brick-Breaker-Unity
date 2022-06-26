@@ -43,9 +43,6 @@ public class Coins : MonoBehaviour
     }
 
     public bool IsPurchisable(int price) { // checks if coins are enough to buy something
-            if (m_Coins >= price)
-            return true;
-            else
-            return false;
+            return (m_Coins >= price);
     }
 }

@@ -54,7 +54,13 @@ public class MenuController : MonoBehaviour
 
     public void StartGame()
     {
-        Application.LoadLevel("Level1");
+        Energy energy = EnergyController.Instance.Energy;
+        if (energy.CurrentEnergy >= energy.startGameEnergy) {
+            Application.LoadLevel("Level1");
+          //  energy.currentEnergy -= energy.startGameEnergy;
+          energy.ChangeCurrentEnergy(energy.CurrentEnergy - energy.startGameEnergy);
+            energy.SaveLastPlayTime();
+        }
         //GameManager.Instance.m_GameState = GameManager.GameState.Playable;
         //Debug.Log("gamestate " + GameManager.Instance.m_GameState);
     }
