@@ -13,18 +13,12 @@ public class MenuController : MonoBehaviour
     public GameObject m_SettingsPanel;
     public GameObject m_PauseMenu;  // or backMenu (panel)
 
-    public static bool pause;
-
     private float m_timeScale;
 
     void Start ()
     {
         m_SettingsPanel.SetActive(false);
-<<<<<<< HEAD
         energy = EnergyController.Instance.Energy;
-=======
-        pause = false;
->>>>>>> bugFix
     }
 
     void Update()
