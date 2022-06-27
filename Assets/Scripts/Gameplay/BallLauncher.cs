@@ -83,15 +83,13 @@ public class BallLauncher : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
           //  StartDrag(m_WorldPosition);
         else */
-        if (Input.GetMouseButton(0) &&
-            !MenuController.pause
+        if (Input.GetMouseButton(0)
             && m_WorldPosition.x >= leftBorder.transform.position.x
             && m_WorldPosition.x <= rightBorder.transform.position.x
             && m_WorldPosition.y <= topBorder.transform.position.y
             && m_WorldPosition.y >= bottomBorder.transform.position.y)
             ContinueDrag(m_WorldPosition);
-        else if (Input.GetMouseButtonUp(0) &&
-            !MenuController.pause
+        else if (Input.GetMouseButtonUp(0)
             && m_WorldPosition.x >= leftBorder.transform.position.x
             && m_WorldPosition.x <= rightBorder.transform.position.x
             && m_WorldPosition.y <= topBorder.transform.position.y
