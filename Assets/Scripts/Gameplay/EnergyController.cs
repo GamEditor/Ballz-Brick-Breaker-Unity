@@ -34,7 +34,7 @@ public class EnergyController : MonoBehaviour
         }
     }
 
-    private void ShowEnergy(){
+    public void ShowEnergy(){
          energyText.text = $"{Energy.defaultEnergy} / {Energy.CurrentEnergy}";
     }
 }

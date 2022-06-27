@@ -6,6 +6,8 @@ public class MenuController : MonoBehaviour
     public enum Market { PlayStore, CafeBazaar, }
     public Market m_Market = Market.PlayStore;
 
+    private Energy energy;
+
     public GameObject m_MainMenuQuitPanel;
     public GameObject m_SettingsPanel;
     public GameObject m_PauseMenu;  // or backMenu (panel)
@@ -15,6 +17,7 @@ public class MenuController : MonoBehaviour
     void Start ()
     {
         m_SettingsPanel.SetActive(false);
+        energy = EnergyController.Instance.Energy;
     }
 
     void Update()
@@ -54,12 +57,11 @@ public class MenuController : MonoBehaviour
 
     public void StartGame()
     {
-        Energy energy = EnergyController.Instance.Energy;
         if (energy.CurrentEnergy >= energy.startGameEnergy) {
             Application.LoadLevel("Level1");
           //  energy.currentEnergy -= energy.startGameEnergy;
           energy.ChangeCurrentEnergy(energy.CurrentEnergy - energy.startGameEnergy);
-            energy.SaveLastPlayTime();
+            TimeController.SaveLastPlayTime();
         }
         //GameManager.Instance.m_GameState = GameManager.GameState.Playable;
         //Debug.Log("gamestate " + GameManager.Instance.m_GameState);
@@ -298,10 +300,16 @@ public class MenuController : MonoBehaviour
 
     public void ReplayAfterGameOver()
     {
-        BallLauncher.Instance.OnMainMenuActions();
-        BrickSpawner.Instance.HideAllBricksRows();
-        LevelManager.Instance.m_LevelState = LevelManager.LevelState.Playable;
-        Saver.Instance.Save(true);
+        if (energy.CurrentEnergy >= energy.startGameEnergy) {
+            energy.ChangeCurrentEnergy(energy.CurrentEnergy - energy.startGameEnergy);
+            TimeController.SaveLastPlayTime();
+            EnergyController.Instance.ShowEnergy();
+            
+            BallLauncher.Instance.OnMainMenuActions();
+            BrickSpawner.Instance.HideAllBricksRows();
+            LevelManager.Instance.m_LevelState = LevelManager.LevelState.Playable;
+            Saver.Instance.Save(true);
+        }
     }
     #endregion
 
