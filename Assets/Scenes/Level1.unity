@@ -5426,6 +5426,7 @@ MonoBehaviour:
   topBorder: {fileID: 832922478}
   leftBorder: {fileID: 1622270826}
   rightBorder: {fileID: 1006837532}
+  bottomBorder: {fileID: 1163078697}
   ballStartPosition: {fileID: 619659858}
 --- !u!120 &2041127519
 LineRenderer:
