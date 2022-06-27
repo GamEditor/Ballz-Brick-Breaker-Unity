@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 
 public class MenuController : MonoBehaviour
 {
@@ -12,12 +13,18 @@ public class MenuController : MonoBehaviour
     public GameObject m_SettingsPanel;
     public GameObject m_PauseMenu;  // or backMenu (panel)
 
+    public static bool pause;
+
     private float m_timeScale;
 
     void Start ()
     {
         m_SettingsPanel.SetActive(false);
+<<<<<<< HEAD
         energy = EnergyController.Instance.Energy;
+=======
+        pause = false;
+>>>>>>> bugFix
     }
 
     void Update()
@@ -72,7 +79,9 @@ public class MenuController : MonoBehaviour
         // 1 - stop the time scale
         m_timeScale = Time.timeScale;
         Time.timeScale = 0;
-
+        //pause = true;
+        BallLauncher.Instance.m_CanPlay = false;
+        Debug.Log("can play " + BallLauncher.Instance.m_CanPlay);
         // 2 - active m_PauseMenu
         m_PauseMenu.SetActive(true);
     }
@@ -82,9 +91,16 @@ public class MenuController : MonoBehaviour
         // 1 - relaunch the time scale
         Time.timeScale = m_timeScale;
         m_timeScale = 0;
-
         // 2 - deactive m_PauseMenu
         m_PauseMenu.SetActive(false);
+        StartCoroutine("ResumeGameAfterPause");
+    }
+
+    IEnumerator ResumeGameAfterPause()
+    {
+        yield return new WaitForSeconds(0.5f);
+        BallLauncher.Instance.m_CanPlay = true;
+        Debug.Log("can play " + BallLauncher.Instance.m_CanPlay);
     }
 
     public void ShowSettingsPanel()
@@ -92,7 +108,7 @@ public class MenuController : MonoBehaviour
         // 1 - stop the time scale
         m_timeScale = Time.timeScale;
         Time.timeScale = 0;
-
+        BallLauncher.Instance.m_CanPlay = false;
         m_SettingsPanel.SetActive(true);
     }
 
@@ -101,7 +117,7 @@ public class MenuController : MonoBehaviour
         // 1 - relaunch the time scale
         Time.timeScale = m_timeScale;
         m_timeScale = 0;
-
+        StartCoroutine("ResumeGameAfterPause");
         m_SettingsPanel.SetActive(false);
     }
 
