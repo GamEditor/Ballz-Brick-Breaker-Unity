@@ -8,7 +8,6 @@ public class Energy
     public int CurrentEnergy {private set; get;}
     public int energyRefreshentTime = 60;
     public int startGameEnergy = 10;
-    private int lastPlayTime;
 
     public Energy() {
        CurrentEnergy = PlayerPrefs.GetInt("energy", defaultEnergy);
@@ -17,9 +16,9 @@ public class Energy
     }
 
     private void CalculateEnergy() {
-        int currentTime = GetCurrentTime();
-        LoadLastPlayTime();
-        int differenceTime = lastPlayTime - currentTime;
+        int currentTime = TimeController.GetCurrentTime();
+        TimeController.LoadLastPlayTime();
+        int differenceTime = currentTime - TimeController.LastPlayTime;
         CurrentEnergy += differenceTime / energyRefreshentTime;
         if (CurrentEnergy > defaultEnergy)
             ChangeCurrentEnergy(defaultEnergy);
@@ -29,17 +28,5 @@ public class Energy
     public void ChangeCurrentEnergy(int newEnergy) {
         CurrentEnergy = newEnergy;
         PlayerPrefs.SetInt("energy", CurrentEnergy);
-    }
-
-    public int GetCurrentTime() {
-        return DateTime.Now.Second;
-    }
-
-    public void SaveLastPlayTime() {
-        PlayerPrefs.SetInt("last_play_time", GetCurrentTime());
-    }
-    
-    public void LoadLastPlayTime() {
-       lastPlayTime = PlayerPrefs.GetInt("last_play_time");
     }
 }
